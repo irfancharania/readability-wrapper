@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}} - Readability Parser</title>
+    <meta name="description" content="Remove all the cruft from web pages for a pleasant reading experience">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}" />
+</head>
+<body>
+    <header>
+        <form id="form-data" method="get" action="/">
+            <div>
+                <input type="text" name="url" maxlength="500" size="50"
+                       placeholder="https://mercury.postlight.com/web-parser/" />
+            </div>
+            <div>
+                <button>Submit</button>
+            </div>
+        </form>
+    </header>
+    <main>
+        {% if content %}
+        <h1>
+            {{title}}
+            {% if url %}
+            <small>(<a href="{{url}}">{{url}}</a>)</small>
+            {% endif %}
+        </h1>
+        {% autoescape false %}<div>
+            {{content}}
+        </div>
+        {% endautoescape %}
+        {% else %}<div>
+            Unable to parse content
+        </div>
+        {% endif %}
+
+    </main>
+</body>
+</html>
