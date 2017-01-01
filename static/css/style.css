@@ -68,7 +68,21 @@ h1, h2, h3, h4, h5 {
         font-size: 60%;
     }
 
+a {
+    color: #6f0fff;
+}
+
+    a:visited {
+        color: #9f0fff;
+    }
+
+    a:hover {
+        color: #f00;
+    }
+
+
 /*-----------------------*/
+
 body.dark {
     background: #333;
     color: #eee;
@@ -82,10 +96,14 @@ body.dark {
         color: #fff;
     }
 
-a {
-    color: #3f3fff;
-}
-
-    a:visited {
-        color: #6f6fff;
+    body.dark a {
+        color: #9ff;
     }
+
+        body.dark a:visited {
+            color: #6ff;
+        }
+
+        body.dark a:hover {
+            color: #ffd600;
+        }

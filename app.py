@@ -28,8 +28,13 @@ def favicon():
 def main():
     # variables
     page_url = ""
+    page_theme = ""
 
     # main
+    paramTheme = request.args.get('theme')
+    if paramTheme:
+        page_theme = "dark" if paramTheme.lower() == "dark" else ""
+
     paramUrl = request.args.get('url')
     if paramUrl:
         url = urllib.unquote(paramUrl).strip()
@@ -51,7 +56,8 @@ def main():
     return render_template('index.html',
                            title=page_title,
                            content=page_content,
-                           url=page_url)
+                           url=page_url,
+                           theme=page_theme)
 
 
 # launch
