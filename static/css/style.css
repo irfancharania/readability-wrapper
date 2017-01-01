@@ -47,6 +47,7 @@ main {
     max-width: 900px;
     margin: 0px auto;
     padding: 0 10px;
+    word-wrap: break-word;
 }
 
 /*-----------------------*/
@@ -84,7 +85,7 @@ a {
 /*-----------------------*/
 
 body.dark {
-    background: #333;
+    background: #000;
     color: #eee;
 }
 
