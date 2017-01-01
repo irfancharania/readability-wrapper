@@ -58,6 +58,7 @@ main {
     margin: 0px auto;
     padding: 0 10px;
     word-wrap: break-word;
+    overflow: auto;
 }
 
 pre {

@@ -20,20 +20,36 @@ def get_remote_data(url):
     return mercury.parse(url)
 
 
+def strip_redirects(page_url):
+    ''' strip out any redirects (adverts/analytics/etc) and get final url '''
+
+    t = page_url.lower().replace('%3a', ':').replace('%2f', '/')
+    i = t.rfind('http')
+    if (i > 0):
+        t = t[i:]
+        j = t.find('&')
+        if (j > 0):
+            t = t[:j]
+    return t
+
+
 def build_url(page_url, page_theme, page_links):
-    if any(x in page_url for x in DO_NOT_REDIRECT):
-        link = page_url
+    u = strip_redirects(page_url)
+
+    if any(x in page_url for x in DO_NOT_REDIRECT) or \
+       page_links == 'original':
+        link = u
     else:
         link = urljoin(request.url_root,
                        url_for('main',
                                theme=page_theme,
                                links=page_links,
-                               url=page_url))
-    result = 'href="{0}"'
-    return result.format(link)
+                               url=u))
+
+    return 'href="{0}"'.format(link)
 
 
-def change_links_to_readable(content, page_theme, page_links):
+def update_links(content, page_theme, page_links):
     ''' update outgoing links to pass through this site '''
 
     return re.sub('href="(\S+)"',
@@ -71,9 +87,8 @@ def main():
                 data = get_remote_data(url)
                 if data.url:
                     page_title = data.title
-                    page_content = data.content if page_links == 'original' \
-                        else change_links_to_readable(data.content,
-                                                      page_theme, page_links)
+                    page_content = update_links(data.content,
+                                                page_theme, page_links)
                     page_url = data.url
                 else:
                     # parser is unavailable
