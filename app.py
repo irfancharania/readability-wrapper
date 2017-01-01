@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template, send_from_directory, url_for
+from flask import Flask, request, render_template, send_from_directory, url_for, redirect
 from mercury_parser import ParserAPI
 from urlparse import urljoin
 import validators
 import urllib
 import os
 import re
-from config import MERCURY_API_KEY, LINKS, THEME, DO_NOT_REDIRECT
+from config import MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRECT_URL
 
 # initialization
 app = Flask(__name__)
@@ -52,33 +52,34 @@ def favicon():
 def main():
     # variables
     page_url = ""
-    page_theme = THEME
-    page_links = LINKS
 
     # parse query string parameters
     paramTheme = request.args.get('theme')
-    if paramTheme:
-        page_theme = "dark" if paramTheme.lower() == "dark" else THEME
+    page_theme = 'dark' if paramTheme and paramTheme.lower() == 'dark' else ''
 
     paramLinks = request.args.get('links')
-    if paramLinks:
-        page_links = "original" if paramLinks.lower() == "original" else LINKS
+    page_links = 'original' if paramLinks and paramLinks.lower() == 'original' else ''
 
     paramUrl = request.args.get('url')
+
     if paramUrl:
         url = urllib.unquote(paramUrl).strip()
+
         if validators.url(url):
             # get page content
-            data = get_remote_data(url)
-            if data.url:
-                page_title = data.title
-                page_content = data.content if page_links == "original" \
-                    else change_links_to_readable(data.content,
-                                                  page_theme, page_links)
-                page_url = data.url
-            else:
-                page_title = "Parser unavailable"
-                page_content = "Parser is not working"
+            try:
+                data = get_remote_data(url)
+                if data.url:
+                    page_title = data.title
+                    page_content = data.content if page_links == 'original' \
+                        else change_links_to_readable(data.content,
+                                                      page_theme, page_links)
+                    page_url = data.url
+                else:
+                    # parser is unavailable
+                    return redirect(FALLBACK_REDIRECT_URL + url)
+            except:
+                return redirect(FALLBACK_REDIRECT_URL + url)
 
         else:
             page_title = "Invalid URL"
@@ -92,7 +93,8 @@ def main():
                            title=page_title,
                            content=page_content,
                            url=page_url,
-                           theme=page_theme)
+                           theme=page_theme,
+                           links=page_links)
 
 
 # launch

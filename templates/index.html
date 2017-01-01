@@ -10,9 +10,20 @@
 <body class="{{theme}}">
     <header>
         <form id="form-data" method="get" action="/">
-            <div>
-                <input type="text" name="url" maxlength="500" size="50"
-                       placeholder="https://mercury.postlight.com/web-parser/" />
+            <div class="url">
+                <input type="search" name="url" maxlength="500" size="50"
+                       placeholder="https://mercury.postlight.com/web-parser/"
+                       value="{{url}}" />
+            </div>
+            <div class="options">
+                <label title="Switch between dark and light theme">
+                    <input type="checkbox" id="theme" name="theme" value="dark" {% if theme == "dark" %}checked="checked" {% endif %} />
+                    Dark
+                </label>
+                <label title="Redirect links from parser or leave them as original links">
+                    <input type="checkbox" id="links" name="links" value="original" {% if links == "original" %}checked="checked" {% endif %}>
+                    Original
+                </label>
             </div>
             <div>
                 <button>Submit</button>

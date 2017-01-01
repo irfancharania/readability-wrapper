@@ -9,6 +9,5 @@ load_dotenv(dotenv_path)
 
 # set up variables
 MERCURY_API_KEY = os.getenv('MERCURY_API_KEY')
-LINKS = 'redirect'
-THEME = ''
-DO_NOT_REDIRECT = ['youtube', 'dailymotion']
+DO_NOT_REDIRECT = ['youtube.com', 'github.com', '.pdf']
+FALLBACK_REDIRECT_URL = 'http://googleweblight.com/?lite_url='

@@ -20,26 +20,36 @@ header {
 
     header div {
         display: table-cell;
-        width: 100%;
-    }
-
-    header input {
-        width: 100%;
-        padding: .5em 1em;
     }
 
     header button {
         color: black;
-        padding: .5em 1em;
         white-space: nowrap;
         margin: 0 0 0 1em;
     }
 
-input, button {
-    font-size: inherit;
-    line-height: inherit;
-    font-family: inherit;
-}
+    header input, button {
+        padding: .5em 1em;
+        font-size: inherit;
+        line-height: inherit;
+        font-family: inherit;
+    }
+
+    header .url input {
+        width: 100%;
+    }
+
+    header .options {
+        width: 5em;
+        vertical-align: top;
+    }
+
+        header .options label {
+            display: block;
+        }
+
+    header .url {
+    }
 
 main {
     font-size: 18px;
@@ -48,6 +58,10 @@ main {
     margin: 0px auto;
     padding: 0 10px;
     word-wrap: break-word;
+}
+
+pre {
+    overflow: auto;
 }
 
 /*-----------------------*/
@@ -85,7 +99,7 @@ a {
 /*-----------------------*/
 
 body.dark {
-    background: #000;
+    background: #222;
     color: #eee;
 }
 
@@ -98,7 +112,7 @@ body.dark {
     }
 
     body.dark a {
-        color: #9ff;
+        color: #3ff;
     }
 
         body.dark a:visited {

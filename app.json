@@ -1,0 +1,6 @@
+{
+  "name": "Readability Parser",
+  "description": "Remove all the cruft from web pages for a pleasant reading experience",
+  "repository": "https://github.com/irfancharania/readability-wrapper",
+  "keywords": [ "readability", "mercury", "heroku" ]
+}
