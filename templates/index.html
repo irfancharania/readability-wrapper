@@ -27,18 +27,18 @@
                     Original
                 </label>
             </div>
-            <div>
+            <div class="submit">
                 <button>Submit</button>
             </div>
         </form>
     </header>
     <main>
         {% if content %}
+        {% if url %}
+        <small><a href="{{url}}">{{url}}</a></small>
+        {% endif %}
         <h1>
-            <span>{{title}}</span>
-            {% if url %}
-            <small>(<a href="{{url}}">{{url}}</a>)</small>
-            {% endif %}
+            {{title}}
         </h1>
         {% autoescape false %}<div>
             {{content}}

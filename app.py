@@ -40,11 +40,13 @@ def build_url(page_url, page_theme, page_links):
        page_links == 'original':
         link = u
     else:
+        params = {'url': u}
+        # build optional parameter list
+        if page_theme: params['theme'] = page_theme
+        if page_links: params['links'] = page_links
+
         link = urljoin(request.url_root,
-                       url_for('main',
-                               theme=page_theme,
-                               links=page_links,
-                               url=u))
+                       url_for('main', **params))
 
     return 'href="{0}"'.format(link)
 

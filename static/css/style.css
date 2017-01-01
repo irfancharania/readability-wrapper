@@ -29,7 +29,7 @@ header {
     }
 
     header input, button {
-        padding: .5em 1em;
+        padding: .5em .5em;
         font-size: inherit;
         line-height: inherit;
         font-family: inherit;
@@ -39,17 +39,15 @@ header {
         width: 100%;
     }
 
-    header .options {
+    header .options, header .submit {
         width: 5em;
         vertical-align: top;
     }
 
         header .options label {
             display: block;
+            font-size: smaller;
         }
-
-    header .url {
-    }
 
 main {
     font-size: 18px;
@@ -60,6 +58,10 @@ main {
     word-wrap: break-word;
     overflow: auto;
 }
+
+    main h1 {
+        margin: 0 0 1.5em 0;
+    }
 
 pre {
     overflow: auto;
