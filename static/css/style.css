@@ -62,6 +62,7 @@ main {
 
 pre {
     overflow: auto;
+    padding: 4px 8px;
 }
 
 /*-----------------------*/
@@ -95,6 +96,9 @@ a {
         color: #f00;
     }
 
+pre {
+    background-color: #ccc;
+}
 
 /*-----------------------*/
 
@@ -122,3 +126,7 @@ body.dark {
         body.dark a:hover {
             color: #ffd600;
         }
+
+    body.dark pre {
+        background-color: #444;
+    }
