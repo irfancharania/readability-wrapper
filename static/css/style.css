@@ -68,6 +68,7 @@ main {
 pre {
     overflow: auto;
     padding: 4px 8px;
+    white-space: pre-wrap;
 }
 
 img {
