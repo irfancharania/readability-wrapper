@@ -160,8 +160,10 @@ body.dark {
         background-color: #444;
     }
 
+    body.dark table tbody tr:nth-of-type(odd) {
         background-color: #444;
     }
 
+    body.dark table thead th {
         border-bottom: 2px solid #ccc;
     }
