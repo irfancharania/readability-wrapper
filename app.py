@@ -21,7 +21,7 @@ def get_remote_data(url):
 
 
 def strip_redirects(page_url):
-    ''' strip out any redirects (adverts/analytics/etc) and get final url '''
+    ''' strip out any redirects (adverts/analytics/etc) and get final link url '''
 
     t = page_url.lower().replace('%3a', ':').replace('%2f', '/')
     i = t.rfind('http')
@@ -33,7 +33,7 @@ def strip_redirects(page_url):
     return t
 
 
-def build_url(page_url, page_theme, page_links):
+def build_link_url(page_url, page_theme, page_links):
     u = strip_redirects(page_url)
 
     if any(x in page_url for x in DO_NOT_REDIRECT) or \
@@ -51,12 +51,33 @@ def build_url(page_url, page_theme, page_links):
     return 'href="{0}"'.format(link)
 
 
-def update_links(content, page_theme, page_links):
-    ''' update outgoing links to pass through this site '''
+def build_img_url(img_url):
+    '''
+    take first image if srcset specified (Mercury screws it up)
+    e.g. <img src="http://... .jpg%201024w,%20http://...
+    '''
 
-    return re.sub('href="(\S+)"',
-                  lambda m: build_url(m.group(1), page_theme, page_links),
+    t = img_url
+    i = img_url.find(',')
+    if (i > 0):
+        t = t[:i]
+        j = t.rfind('%')
+        if (j > 0):
+            t = t[:j]
+
+    return 'img src="{0}"'.format(t)
+
+
+def update_links(content, page_theme, page_links):
+    ''' update image and outgoing links to pass through this site '''
+
+    h = re.sub('href="(\S+)"',
+                  lambda m: build_link_url(m.group(1), page_theme, page_links),
                   content)
+    i = re.sub('img src="(\S+)"',
+                  lambda m: build_img_url(m.group(1)),
+                  h)
+    return i
 
 
 # controllers
