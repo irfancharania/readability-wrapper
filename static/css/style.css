@@ -75,6 +75,17 @@ img {
     max-width: 100%;
 }
 
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+    table th,
+    table td {
+        vertical-align: top;
+        padding: 0.5rem;
+    }
+
 /*-----------------------*/
 body {
     background: #eee;
@@ -110,6 +121,14 @@ pre {
     background-color: #ccc;
 }
 
+table tbody tr:nth-of-type(odd) {
+    background-color: #ccc;
+}
+
+table thead th {
+    border-bottom: 2px solid #666;
+}
+
 /*-----------------------*/
 
 body.dark {
@@ -139,4 +158,10 @@ body.dark {
 
     body.dark pre {
         background-color: #444;
+    }
+
+        background-color: #444;
+    }
+
+        border-bottom: 2px solid #ccc;
     }
