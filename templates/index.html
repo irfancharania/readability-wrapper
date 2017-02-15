@@ -20,11 +20,11 @@
             <div class="options">
                 <label title="Switch between dark and light theme">
                     <input type="checkbox" id="theme" name="theme" value="dark" {% if theme == "dark" %}checked="checked" {% endif %} />
-                    Dark
+                    <span class="help">Dark</span>
                 </label>
                 <label title="Redirect links from parser or leave them as original links">
                     <input type="checkbox" id="links" name="links" value="original" {% if links == "original" %}checked="checked" {% endif %}>
-                    Original
+                    <span class="help">Original</span>
                 </label>
             </div>
             <div class="submit">

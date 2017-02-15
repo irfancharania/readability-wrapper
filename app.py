@@ -120,12 +120,12 @@ def main():
                 return redirect(FALLBACK_REDIRECT_URL + url)
 
         else:
-            page_title = "Invalid URL"
-            page_content = "Invalid URL. Try again."
+            page_title = 'Invalid URL'
+            page_content = 'Check URL and try again.'
 
     else:
-        page_title = "Home"
-        page_content = "Enter URL to get started"
+        page_title = 'Enter URL to get started'
+        page_content = '<a href="https://github.com/irfancharania/readability-wrapper">source</a>'
 
     return render_template('index.html',
                            title=page_title,

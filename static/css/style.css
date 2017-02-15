@@ -86,6 +86,10 @@ table {
         padding: 0.5rem;
     }
 
+.help{
+    cursor: help;
+}
+
 /*-----------------------*/
 body {
     background: #eee;
@@ -129,6 +133,9 @@ table thead th {
     border-bottom: 2px solid #666;
 }
 
+.help {
+    border-bottom: 1px dotted #777;
+}
 /*-----------------------*/
 
 body.dark {
@@ -166,4 +173,8 @@ body.dark {
 
     body.dark table thead th {
         border-bottom: 2px solid #ccc;
+    }
+
+    body.dark .help{
+        border-bottom: 1px dotted #aaa;
     }
