@@ -6,7 +6,7 @@ click==6.7
 colorama==0.3.7
 convertdate==2.1.0
 dateparser==0.6.0
-decorator==4.0.10
+decorator==4.2.1
 ephem==3.7.6.0
 Flask==0.12.2
 humanize==0.5.1
@@ -20,7 +20,7 @@ maya==0.3.3
 mercury-parser==0.1.2
 pendulum==1.4.0
 python-dateutil==2.6.1
-python-dotenv==0.6.1
+python-dotenv==0.7.1
 pytz==2017.3
 pytzdata==2017.3.1
 regex==2018.1.10
@@ -32,5 +32,5 @@ typing==3.5.2.2
 tzlocal==1.5.1
 umalqurra==0.2
 urllib3==1.22
-validators==0.11.1
+validators==0.12.0
 Werkzeug==0.14.1
