@@ -121,9 +121,9 @@ def main():
                     # parser is unavailable
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
-                # return redirect(FALLBACK_REDIRECT_URL + url)
-                print "Unexpected error:", sys.exc_info()[0]
-                raise
+                return redirect(FALLBACK_REDIRECT_URL + url)
+                # print "Unexpected error:", sys.exc_info()[0]
+                # raise
 
         else:
             page_title = 'Invalid URL'
