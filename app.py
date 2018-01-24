@@ -4,7 +4,7 @@ from urlparse import urljoin
 import validators
 import urllib
 import os
-import re
+from bs4 import BeautifulSoup
 from config import MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRECT_URL
 
 # initialization
@@ -42,13 +42,15 @@ def build_link_url(page_url, page_theme, page_links):
     else:
         params = {'url': u}
         # build optional parameter list
-        if page_theme: params['theme'] = page_theme
-        if page_links: params['links'] = page_links
+        if page_theme:
+            params['theme'] = page_theme
+        if page_links:
+            params['links'] = page_links
 
         link = urljoin(request.url_root,
                        url_for('main', **params))
 
-    return 'href="{0}"'.format(link)
+    return link
 
 
 def build_img_url(img_url):
@@ -65,19 +67,21 @@ def build_img_url(img_url):
         if (j > 0):
             t = t[:j]
 
-    return 'img src="{0}"'.format(t)
+    return t
 
 
 def update_links(content, page_theme, page_links):
     ''' update image and outgoing links to pass through this site '''
 
-    h = re.sub('href="(\S+)"',
-                  lambda m: build_link_url(m.group(1), page_theme, page_links),
-                  content)
-    i = re.sub('img src="(\S+)"',
-                  lambda m: build_img_url(m.group(1)),
-                  h)
-    return i
+    soup = BeautifulSoup(content, 'html.parser')
+
+    for h in soup.findAll('a', href=True):
+        h['href'] = build_link_url(h['href'], page_theme, page_links)
+
+    for i in soup.findAll('img', srcset=True):
+        i['src'] = build_img_url(i['src'])
+
+    return str(soup).decode('utf-8').strip()
 
 
 # controllers
@@ -117,7 +121,9 @@ def main():
                     # parser is unavailable
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
-                return redirect(FALLBACK_REDIRECT_URL + url)
+                # return redirect(FALLBACK_REDIRECT_URL + url)
+                print "Unexpected error:", sys.exc_info()[0]
+                raise
 
         else:
             page_title = 'Invalid URL'
