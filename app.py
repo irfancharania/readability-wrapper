@@ -1,9 +1,11 @@
+from __future__ import print_function
 from flask import Flask, request, render_template, send_from_directory, url_for, redirect
 from mercury_parser import ParserAPI
 from urlparse import urljoin
 import validators
 import urllib
 import os
+import sys
 from bs4 import BeautifulSoup
 from config import MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRECT_URL
 
@@ -13,6 +15,10 @@ app.config.update(DEBUG=True)
 
 
 # functions
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
 def get_remote_data(url):
     ''' fetch website data '''
 
@@ -73,7 +79,7 @@ def build_img_url(img_url):
 def update_links(content, page_theme, page_links):
     ''' update image and outgoing links to pass through this site '''
 
-    soup = BeautifulSoup(content, 'html.parser')
+    soup = BeautifulSoup(content, 'lxml')
 
     for h in soup.findAll('a', href=True):
         h['href'] = build_link_url(h['href'], page_theme, page_links)
@@ -81,7 +87,7 @@ def update_links(content, page_theme, page_links):
     for i in soup.findAll('img', srcset=True):
         i['src'] = build_img_url(i['src'])
 
-    return str(soup).decode('utf-8').strip()
+    return soup.prettify(formatter="html").strip()
 
 
 # controllers
@@ -119,10 +125,11 @@ def main():
                     page_url = data.url
                 else:
                     # parser is unavailable
+                    eprint("Unexpected Error: ", url, data)
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
+                eprint("Unexpected Error: ", sys.exc_info()[0])
                 return redirect(FALLBACK_REDIRECT_URL + url)
-                # print "Unexpected error:", sys.exc_info()[0]
                 # raise
 
         else:
