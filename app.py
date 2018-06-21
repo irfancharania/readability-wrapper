@@ -84,7 +84,8 @@ def update_links(content, page_theme, page_links):
     for h in soup.findAll('a', href=True):
         h['href'] = build_link_url(h['href'], page_theme, page_links)
 
-    for i in soup.findAll('img', srcset=True):
+    ''' removing srcset=True filter to catch lxml screwups '''
+    for i in soup.findAll('img'):
         i['src'] = build_img_url(i['src'])
 
     return soup.prettify(formatter="html").strip()
