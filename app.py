@@ -101,6 +101,7 @@ def favicon():
 @app.route("/")
 def main():
     # variables
+    host_url = request.url_root
     page_url = ""
 
     # parse query string parameters
@@ -139,14 +140,15 @@ def main():
 
     else:
         page_title = 'Enter URL to get started'
-        page_content = '<a href="https://github.com/irfancharania/readability-wrapper">source</a>'
+        page_content = 'No content provided'
 
     return render_template('index.html',
                            title=page_title,
                            content=page_content,
                            url=page_url,
                            theme=page_theme,
-                           links=page_links)
+                           links=page_links,
+                           host=host_url)
 
 
 # launch
