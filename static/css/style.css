@@ -102,12 +102,8 @@ body {
     color: #333;
 }
 
-header {
-    border-bottom-color: #333;
-}
-
-footer {
-   border-top-color: #333;
+header, footer {
+    border-color: #333;
 }
 
 h1, h2, h3, h4, h5 {
@@ -153,8 +149,8 @@ body.dark {
     color: #eee;
 }
 
-    body.dark header {
-        border-bottom-color: #eee;
+    body.dark header, body.dark footer {
+        border-color: #eee;
     }
 
     body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5 {
