@@ -123,7 +123,7 @@ def main():
                     page_title = data.title
                     page_content = update_links(data.content,
                                                 page_theme, page_links)
-                    page_url = data.url
+                    page_url = url
                 else:
                     # parser is unavailable
                     eprint("Unexpected Error: ", url, data)
