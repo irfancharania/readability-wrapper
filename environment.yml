@@ -1,50 +1,51 @@
 name: readability
 channels:
-- defaults
+  - defaults
 dependencies:
-- click=6.6=py27_0
-- flask=0.12=py27_0
-- itsdangerous=0.24=py27_0
-- jinja2=2.8=py27_1
-- markupsafe=0.23=py27_2
-- pip=9.0.1=py27_1
-- python=2.7.14=h8c3f1cb_23
-- requests=2.12.4=py27_0
-- setuptools=27.2.0=py27_1
-- vc=9=h7299396_1
-- vs2008_runtime=9.00.30729.1=2
-- werkzeug=0.11.13=py27_0
-- wheel=0.29.0=py27_0
-- pip:
-  - beautifulsoup4==4.6.0
-  - bs4==0.0.1
-  - certifi==2018.1.18
-  - chardet==3.0.4
-  - colorama==0.3.7
-  - convertdate==2.1.0
-  - dateparser==0.6.0
-  - decorator==4.2.1
-  - ephem==3.7.6.0
-  - humanize==0.5.1
-  - idna==2.6
-  - iso8601==0.1.11
-  - jdatetime==1.8.1
-  - lxml==4.1.1
-  - maya==0.3.3
-  - mercury-parser==0.1.2
-  - pendulum==1.4.0
-  - python-dateutil==2.6.1
-  - python-dotenv==0.7.1
-  - pytz==2017.3
-  - pytzdata==2017.3.1
-  - regex==2018.1.10
-  - ruamel.ordereddict==0.4.13
-  - ruamel.yaml==0.15.35
-  - six==1.11.0
-  - typing==3.5.2.2
-  - tzlocal==1.5.1
-  - umalqurra==0.2
-  - urllib3==1.22
-  - validators==0.12.0
+  - click=6.6=py27_0
+  - flask=0.12=py27_0
+  - itsdangerous=0.24=py27_0
+  - jinja2=2.8=py27_1
+  - markupsafe=0.23=py27_2
+  - pip=9.0.1=py27_1
+  - python=2.7.15=he216670_0
+  - requests=2.12.4=py27_0
+  - setuptools=27.2.0=py27_1
+  - vc=9=h7299396_1
+  - vs2008_runtime=9.00.30729.1=2
+  - werkzeug=0.11.13=py27_0
+  - wheel=0.29.0=py27_0
+  - pip:
+    - beautifulsoup4==4.6.0
+    - bs4==0.0.1
+    - certifi==2018.4.16
+    - chardet==3.0.4
+    - colorama==0.3.7
+    - convertdate==2.1.0
+    - dateparser==0.7.0
+    - decorator==4.3.0
+    - ephem==3.7.6.0
+    - humanize==0.5.1
+    - idna==2.7
+    - iso8601==0.1.11
+    - jdatetime==1.8.1
+    - lxml==4.2.3
+    - maya==0.5.0
+    - mercury-parser==0.1.2
+    - pendulum==1.5.1
+    - python-dateutil==2.7.3
+    - python-dotenv==0.8.2
+    - pytz==2018.4
+    - pytzdata==2018.5
+    - regex==2018.6.21
+    - ruamel.ordereddict==0.4.13
+    - ruamel.yaml==0.15.37
+    - six==1.11.0
+    - snaptime==0.2.4
+    - typing==3.5.2.2
+    - tzlocal==1.5.1
+    - umalqurra==0.2
+    - urllib3==1.23
+    - validators==0.12.2
 prefix: C:\Program Files\Miniconda\envs\readability
 
