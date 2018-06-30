@@ -7,7 +7,7 @@ dependencies:
   - itsdangerous=0.24=py27_0
   - jinja2=2.8=py27_1
   - markupsafe=0.23=py27_2
-  - pip=9.0.1=py27_1
+  - pip=10.0.1=py27_0
   - python=2.7.15=he216670_0
   - requests=2.12.4=py27_0
   - setuptools=27.2.0=py27_1
