@@ -66,12 +66,9 @@ def build_img_url(img_url):
     '''
 
     t = img_url
-    i = img_url.find(',')
+    i = img_url.find('%20')
     if (i > 0):
         t = t[:i]
-        j = t.rfind('%')
-        if (j > 0):
-            t = t[:j]
 
     return t
 
