@@ -40,7 +40,11 @@
         <h1>
             {{title}}
         </h1>
-        {% autoescape false %}<div>
+        {% autoescape false %}
+            {% if lead_img_url %}
+            <p><img src="{{lead_img_url}}" class="lead" /></p>
+            {% endif %}
+        <div>
             {{content}}
         </div>
         {% endautoescape %}

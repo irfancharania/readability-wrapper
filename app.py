@@ -87,6 +87,17 @@ def update_links(content, page_theme, page_links):
     return soup.prettify(formatter="html").strip()
 
 
+def get_lead_image(data):
+    ''' show lead image if not repeated in content '''
+
+    filename = data.lead_image_url[data.lead_image_url.rfind('/')+1:]
+
+    if filename not in data.content:
+        return data.lead_image_url
+    else:
+        return None
+
+
 # controllers
 @app.route('/favicon.ico')
 def favicon():
@@ -101,6 +112,7 @@ def main():
     page_url = ""
     page_title = ""
     page_content = ""
+    lead_img_url = ""
 
     # parse query string parameters
     paramTheme = request.args.get('theme')
@@ -119,12 +131,9 @@ def main():
             try:
                 data = get_remote_data(url)
 
-                print('********')
-                print(data)
-                print('------')
-
                 if data.url:
                     page_title = data.title
+                    lead_img_url = get_lead_image(data)
                     page_content = update_links(data.content,
                                                 page_theme, page_links)
                     page_url = url
@@ -133,8 +142,8 @@ def main():
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
                 eprint("Unexpected Error: ", sys.exc_info()[0])
-                #return redirect(FALLBACK_REDIRECT_URL + url)
-                raise
+                return redirect(FALLBACK_REDIRECT_URL + url)
+                #raise
 
         else:
             page_title = 'Invalid URL'
@@ -146,6 +155,7 @@ def main():
 
     return render_template('index.html',
                            title=page_title,
+                           lead_img_url=lead_img_url,
                            content=page_content,
                            url=page_url,
                            theme=page_theme,
