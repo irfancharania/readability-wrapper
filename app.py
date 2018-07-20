@@ -1,9 +1,8 @@
-from __future__ import print_function
 from flask import Flask, request, render_template, send_from_directory, url_for, redirect
 from mercury_parser import ParserAPI
-from urlparse import urljoin
+from urllib.parse import urljoin
 import validators
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import os
 import sys
 from bs4 import BeautifulSoup
@@ -100,6 +99,8 @@ def main():
     # variables
     host_url = request.url_root
     page_url = ""
+    page_title = ""
+    page_content = ""
 
     # parse query string parameters
     paramTheme = request.args.get('theme')
@@ -111,25 +112,29 @@ def main():
     paramUrl = request.args.get('url')
 
     if paramUrl:
-        url = urllib.unquote(paramUrl).strip().replace(' ', '%20')
+        url = urllib.parse.unquote(paramUrl).strip().replace(' ', '%20')
 
         if validators.url(url):
             # get page content
             try:
                 data = get_remote_data(url)
+
+                print('********')
+                print(data)
+                print('------')
+
                 if data.url:
                     page_title = data.title
                     page_content = update_links(data.content,
                                                 page_theme, page_links)
                     page_url = url
                 else:
-                    # parser is unavailable
-                    eprint("Unexpected Error: ", url, data)
+                    eprint("Parser unavailable: ", url, data)
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
                 eprint("Unexpected Error: ", sys.exc_info()[0])
-                return redirect(FALLBACK_REDIRECT_URL + url)
-                # raise
+                #return redirect(FALLBACK_REDIRECT_URL + url)
+                raise
 
         else:
             page_title = 'Invalid URL'
