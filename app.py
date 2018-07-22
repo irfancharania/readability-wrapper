@@ -90,12 +90,13 @@ def update_links(content, page_theme, page_links):
 def get_lead_image(data):
     ''' show lead image if not repeated in content '''
 
-    filename = data.lead_image_url[data.lead_image_url.rfind('/')+1:]
+    if data.lead_image_url:
+        filename = data.lead_image_url[data.lead_image_url.rfind('/')+1:]
 
-    if filename not in data.content:
-        return data.lead_image_url
-    else:
-        return None
+        if filename not in data.content:
+            return data.lead_image_url
+
+    return None
 
 
 # controllers
