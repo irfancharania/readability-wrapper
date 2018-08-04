@@ -5,8 +5,6 @@ channels:
   - defaults
 dependencies:
   - validators=0.12.1=py_2
-  - beautifulsoup4=4.6.0=py36_0
-  - ca-certificates=2018.4.16=0
   - dateparser=0.7.0=py_0
   - humanize=0.5.1=py_1
   - lxml=4.2.3=py36heafd4d3_0
@@ -20,6 +18,8 @@ dependencies:
   - snaptime=0.2.4=py_0
   - tzlocal=1.5.1=py_0
   - asn1crypto=0.24.0=py36_0
+  - beautifulsoup4=4.6.1=py36_0
+  - ca-certificates=2018.03.07=0
   - certifi=2018.4.16=py36_0
   - cffi=1.11.5=py36h945400d_0
   - chardet=3.0.4=py36_1
@@ -34,7 +34,7 @@ dependencies:
   - libxml2=2.9.8=hadb2253_1
   - libxslt=1.1.32=hf6f1972_0
   - markupsafe=1.0=py36hfa6e2cd_1
-  - openssl=1.0.2o=h8ea7d77_0
+  - openssl=1.0.2o=hfa6e2cd_1
   - pip=10.0.1=py36_0
   - pycparser=2.18=py36_1
   - pyopenssl=18.0.0=py36_0
