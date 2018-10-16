@@ -9,7 +9,7 @@ dependencies:
   - asn1crypto=0.24.0=py37_0
   - beautifulsoup4=4.6.3=py37_0
   - ca-certificates=2018.03.07=0
-  - certifi=2018.8.24=py37_1
+  - certifi=2018.10.15=py37_0
   - cffi=1.11.5=py37h74b6da3_1
   - chardet=3.0.4=py37_1
   - click=6.7=py37_0
@@ -20,7 +20,7 @@ dependencies:
   - jinja2=2.10=py37_0
   - libiconv=1.15=h1df5818_7
   - libxml2=2.9.8=hadb2253_1
-  - lxml=4.2.4=py37hef2cd61_0
+  - lxml=4.2.5=py37hef2cd61_0
   - markupsafe=1.0=py37hfa6e2cd_1
   - openssl=1.0.2p=hfa6e2cd_0
   - pip=10.0.1=py37_0
