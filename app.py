@@ -125,7 +125,7 @@ def main():
     paramUrl = request.args.get('url')
 
     if paramUrl:
-        url = urllib.parse.unquote(paramUrl).strip().replace(' ', '%20')
+        url = urllib.parse.unquote(paramUrl).strip().replace(' ', '%20').strip("/")
 
         if validators.url(url):
             # get page content
