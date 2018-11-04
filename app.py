@@ -31,10 +31,12 @@ def strip_redirects(page_url):
     t = page_url.lower().replace('%3a', ':').replace('%2f', '/')
     i = t.rfind('http')
     if (i > 0):
-        t = t[i:]
-        j = t.find('&')
-        if (j > 0):
-            t = t[:j]
+        # ignore urls that have "http" in slugs (blog title, etc)
+        if (t[i-1] == '=' or t[i-1] != '-'):
+            t = t[i:]
+            j = t.find('&')
+            if (j > 0):
+                t = t[:j]
     return t
 
 
