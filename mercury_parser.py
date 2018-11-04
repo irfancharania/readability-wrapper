@@ -38,8 +38,11 @@ class ParsedArticle(object):
 
         # Proper Datetimes.
         if p.date_published:
-            p.date_published = maya.MayaDT.from_iso8601(p.date_published).datetime()
-
+            try:
+                p.date_published = maya.MayaDT.from_iso8601(p.date_published).datetime()
+            except:
+                p.date_published = None
+                
         return p
 
     def next(self):
