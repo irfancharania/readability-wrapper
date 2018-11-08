@@ -5,6 +5,7 @@ import validators
 import urllib.request, urllib.parse, urllib.error
 import os
 import sys
+import re
 from bs4 import BeautifulSoup
 from config import AMP_PREFIX, MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRECT_URL
 
@@ -101,6 +102,18 @@ def get_lead_image(data):
     return None
 
 
+def strip_tracking_suffix(url):
+    ''' remove advert/campaign tracking url parameters '''
+
+    pattern = '\/?\?_?[\w]*=.*'
+    match = re.search(pattern, url)
+    
+    if match:
+        return url[:match.start()]
+    else:
+        return url
+
+
 # controllers
 @app.route('/favicon.ico')
 def favicon():
@@ -127,10 +140,12 @@ def main():
     paramUrl = request.args.get('url')
 
     if paramUrl:
-        url = urllib.parse.unquote(paramUrl) \
-                .strip().strip("/") \
-                .replace(' ', '%20') \
-                .replace(AMP_PREFIX, '') \
+        url = strip_tracking_suffix(
+                urllib.parse.unquote(paramUrl) \
+                    .strip().strip("/") \
+                    .replace(' ', '%20') \
+                    .replace(AMP_PREFIX, '')
+              )
 
         if validators.url(url):
             # get page content
