@@ -11,7 +11,7 @@ from config import AMP_PREFIX, MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRE
 
 # initialization
 app = Flask(__name__)
-app.config.update(DEBUG=True)
+app.config.update(DEBUG=False)
 
 
 # functions
