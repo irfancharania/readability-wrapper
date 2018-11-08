@@ -6,7 +6,7 @@ import urllib.request, urllib.parse, urllib.error
 import os
 import sys
 from bs4 import BeautifulSoup
-from config import MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRECT_URL
+from config import AMP_PREFIX, MERCURY_API_KEY, DO_NOT_REDIRECT, FALLBACK_REDIRECT_URL
 
 # initialization
 app = Flask(__name__)
@@ -127,7 +127,10 @@ def main():
     paramUrl = request.args.get('url')
 
     if paramUrl:
-        url = urllib.parse.unquote(paramUrl).strip().replace(' ', '%20').strip("/")
+        url = urllib.parse.unquote(paramUrl) \
+                .strip().strip("/") \
+                .replace(' ', '%20') \
+                .replace(AMP_PREFIX, '') \
 
         if validators.url(url):
             # get page content
