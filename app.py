@@ -68,9 +68,13 @@ def build_img_url(img_url):
     '''
 
     t = img_url
-    i = img_url.find('%20')
-    if (i > 0):
-        t = t[:i]
+
+    # account for munged srcset and 
+    # discount space in single image path
+    if ',%20' in t:
+	    i = img_url.find('%20')
+	    if (i > 0):
+	        t = t[:i]
 
     return t
 
