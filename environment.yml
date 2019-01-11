@@ -13,7 +13,6 @@ dependencies:
   - chardet=3.0.4=py37_1
   - click=6.7=py37_0
   - cryptography=2.4.1=py37h7a1dbc1_0
-  - flask=1.0.2=py37_1
   - idna=2.7=py37_0
   - itsdangerous=0.24=py37_1
   - jinja2=2.10=py37_0
@@ -35,13 +34,13 @@ dependencies:
   - urllib3=1.23=py37_0
   - vc=14.1=h0510ff6_4
   - vs2015_runtime=14.15.26706=h3a45250_0
-  - werkzeug=0.14.1=py37_0
   - wheel=0.31.1=py37_0
   - win_inet_pton=1.0.1=py37_1
   - wincertstore=0.2=py37_0
   - pip:
     - dateparser==0.7.0
     - decorator==4.3.0
+    - flask==1.0.2
     - gunicorn==19.9.0
     - humanize==0.5.1
     - maya==0.6.1
@@ -53,5 +52,6 @@ dependencies:
     - snaptime==0.2.4
     - tzlocal==1.5.1
     - validators==0.12.4
+    - werkzeug==0.14.1
 prefix: C:\Users\Irfan\AppData\Local\conda\conda\envs\readability
 
