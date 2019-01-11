@@ -71,6 +71,14 @@ footer {
     padding-top: .2em;
 }
 
+footer .boxleft {
+    float: left;
+}
+
+footer .boxright {
+    text-align: right;
+}
+
 pre {
     overflow: auto;
     padding: 4px 8px;
