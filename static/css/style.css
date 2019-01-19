@@ -127,6 +127,10 @@ h1, h2, h3, h4, h5 {
         font-size: 60%;
     }
 
+img {
+    background: #ddd;
+}
+
 a {
     color: #6f0fff;
 }
