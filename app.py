@@ -2,7 +2,9 @@ from flask import Flask, request, render_template, send_from_directory, url_for,
 from mercury_parser import ParserAPI
 from urllib.parse import urljoin
 import validators
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 import os
 import sys
 import re
@@ -26,10 +28,21 @@ def get_remote_data(url):
     return mercury.parse(url)
 
 
+def clean_input_url(paramUrl):
+    ''' strip junk from user submitted url before fetching '''
+
+    return strip_tracking_suffix(
+                urllib.parse.unquote(paramUrl)
+                      .strip().strip("/")
+                      .replace(' ', '%20')
+                      .replace(AMP_PREFIX, '')
+              )
+
+
 def strip_redirects(page_url):
     ''' strip out any redirects (adverts/analytics/etc) and get final link url '''
 
-    t = page_url.replace('%3a', ':').replace('%2f', '/')
+    t = page_url.replace('%3A', ':').replace('%2F', '/')
     i = t.lower().rfind('http')
     if (i > 0):
         # ignore urls that have "http" in slugs (blog title, etc)
@@ -41,7 +54,7 @@ def strip_redirects(page_url):
     return t
 
 
-def build_link_url(page_url, page_theme, page_links):
+def build_link_url(page_url, page_theme=None, page_links=None):
     u = strip_redirects(page_url)
 
     if any(x in page_url for x in DO_NOT_REDIRECT) or \
@@ -69,17 +82,17 @@ def build_img_url(img_url):
 
     t = img_url
 
-    # account for munged srcset and 
+    # account for munged srcset and
     # discount space in single image path
     if ',%20' in t:
-	    i = img_url.find('%20')
-	    if (i > 0):
-	        t = t[:i]
+        i = img_url.find('%20')
+        if (i > 0):
+            t = t[:i]
 
     return t
 
 
-def update_links(content, page_theme, page_links):
+def update_links(content, page_theme=None, page_links=None):
     ''' update image and outgoing links to pass through this site '''
 
     soup = BeautifulSoup(content, 'lxml')
@@ -109,9 +122,9 @@ def get_lead_image(data):
 def strip_tracking_suffix(url):
     ''' remove advert/campaign tracking url parameters '''
 
-    pattern = '\/?\?_?[\w]*=.*'
+    pattern = r'\/\?_?.*&\w*=.*'
     match = re.search(pattern, url)
-    
+
     if match:
         return url[:match.start()]
     else:
@@ -144,12 +157,7 @@ def main():
     paramUrl = request.args.get('url')
 
     if paramUrl:
-        url = strip_tracking_suffix(
-                urllib.parse.unquote(paramUrl) \
-                    .strip().strip("/") \
-                    .replace(' ', '%20') \
-                    .replace(AMP_PREFIX, '')
-              )
+        url = clean_input_url(paramUrl)
 
         if validators.url(url):
             # get page content
@@ -168,7 +176,7 @@ def main():
             except:
                 eprint("Unexpected Error: ", sys.exc_info()[0])
                 return redirect(FALLBACK_REDIRECT_URL + url)
-                #raise
+                # raise
 
         else:
             page_title = 'Invalid URL'
