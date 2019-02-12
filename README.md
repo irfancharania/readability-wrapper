@@ -3,10 +3,12 @@
 
 A front-end for [Mercury Web Parser](https://mercury.postlight.com/web-parser/) that allows you to read the main content on pages without all the unnecessary cruft
 
+** Note ** The hosted Mercury Web Parser API will shut down on April 15, 2019. You will need to self-host [Mercury Parser API](https://github.com/postlight/mercury-parser-api) on AWS.
+
 ## Installation
 
-1. [Sign up](https://mercury.postlight.com/web-parser/) for an API key
-2. Deploy the application to Heroku 
-3. Set the MERCURY_API_KEY environment variable with your API key
+1. Deploy [Mercury Parser API](https://github.com/postlight/mercury-parser-api) to AWS
+2. Deploy this application to Heroku 
+3. Set the MERCURY_API_URL environment variable with your API URL
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)

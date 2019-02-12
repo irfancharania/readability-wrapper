@@ -1,7 +1,9 @@
 import requests
 import maya
+from config import MERCURY_API_URL
 
-MERCURY_API = 'https://mercury.postlight.com/parser?url='
+
+MERCURY_API = '{0}?url='.format(MERCURY_API_URL)
 
 class ParsedArticle(object):
     """docstring for ParsedArticle"""
