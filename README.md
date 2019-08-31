@@ -1,5 +1,5 @@
 # readability-wrapper
-
+[![Build Status](https://travis-ci.com/irfancharania/readability-wrapper.svg?branch=master)](https://travis-ci.com/irfancharania/readability-wrapper.svg?branch=master)
 
 A front-end for [Mercury Web Parser](https://mercury.postlight.com/web-parser/) that allows you to read the main content on pages without all the unnecessary cruft
 
