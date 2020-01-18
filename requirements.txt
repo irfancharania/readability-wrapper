@@ -41,7 +41,7 @@ pytz==2018.5
 pytzdata==2018.5
 regex==2019.8.19
 requests==2.22.0
-six==1.11.0
+six==1.14.0
 snaptime==0.2.4
 soupsieve==1.9.3
 tzlocal==1.5.1
