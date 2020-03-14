@@ -48,7 +48,7 @@ tzlocal==1.5.1
 urllib3==1.25.8
 validators==0.14.0
 wcwidth==0.1.7
-Werkzeug==0.15.5
+Werkzeug==0.16.1
 win-inet-pton==1.1.0
 wincertstore==0.2
 zipp==0.6.0
