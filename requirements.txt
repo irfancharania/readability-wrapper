@@ -15,7 +15,7 @@ flake8==3.7.9
 Flask==1.1.1
 gunicorn==19.9.0
 humanize==0.5.1
-idna==2.8
+idna==2.10
 importlib-metadata==0.19
 itsdangerous==1.1.0
 Jinja2==2.11.1
