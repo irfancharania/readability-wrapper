@@ -2,14 +2,13 @@ asn1crypto==1.3.0
 atomicwrites==1.3.0
 attrs==19.3.0
 beautifulsoup4==4.11.1
-brotlipy @ file:///D:/bld/brotlipy_1636012439160/work
 certifi==2019.11.28
-cffi==1.14.0
+cffi==1.15.0
 chardet==3.0.4
 charset-normalizer==2.0.12
 click==8.1.3
 colorama==0.4.3
-cryptography==2.8
+cryptography==3.1.1
 dateparser==1.1.1
 decorator==4.3.0
 entrypoints==0.3
@@ -48,7 +47,6 @@ six==1.14.0
 snaptime==0.2.4
 soupsieve==1.9.3
 tomli==2.0.1
-typing_extensions==4.2.0
 tzlocal==1.5.1
 urllib3==1.25.3
 validators==0.20.0

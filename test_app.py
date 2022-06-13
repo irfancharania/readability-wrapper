@@ -60,6 +60,7 @@ def test_img_link():
     given = 'https://west.cocowest1.ca/2019/01/crackers2.jpg%20407w,%20https://west.cocowest1.ca/2019/01/crackers2-250x300.jpg%20250w'
     expected = 'https://west.cocowest1.ca/2019/01/crackers2.jpg'
 
-    result = app.build_img_url(given)
+    base_url = 'https://west.cocowest1.ca/'
+    result = app.build_img_url(base_url, given)
 
     assert result == expected
