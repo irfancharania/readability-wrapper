@@ -48,7 +48,7 @@ snaptime==0.2.4
 soupsieve==1.9.3
 tomli==2.0.1
 tzlocal==1.5.1
-urllib3==1.25.3
+urllib3==1.26.5
 validators==0.20.0
 wcwidth==0.1.7
 Werkzeug==2.1.2
