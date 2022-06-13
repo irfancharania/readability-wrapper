@@ -58,7 +58,7 @@ def build_link_url(page_url, page_theme=None, page_links=None):
     u = strip_redirects(page_url)
 
     if any(x in page_url for x in DO_NOT_REDIRECT) or \
-       page_links == 'original':
+        page_links == 'original':
         link = u
     else:
         params = {'url': u}
@@ -74,7 +74,7 @@ def build_link_url(page_url, page_theme=None, page_links=None):
     return link
 
 
-def build_img_url(img_url):
+def build_img_url(request_base_url, img_url):
     '''
     take first image if srcset specified (Mercury screws it up)
     e.g. <img src="http://... .jpg%201024w,%20http://...
@@ -89,10 +89,13 @@ def build_img_url(img_url):
         if (i > 0):
             t = t[:i]
 
-    return t
+    # fix absolute to relative
+    absolute = urljoin(request_base_url, t)
+
+    return absolute
 
 
-def update_links(content, page_theme=None, page_links=None):
+def update_links(request_base_url, content, page_theme=None, page_links=None):
     ''' update image and outgoing links to pass through this site '''
 
     soup = BeautifulSoup(content, 'lxml')
@@ -102,7 +105,11 @@ def update_links(content, page_theme=None, page_links=None):
 
     ''' removing srcset=True filter to catch lxml screwups '''
     for i in soup.findAll('img', src=True):
-        i['src'] = build_img_url(i['src'])
+        i['src'] = build_img_url(request_base_url, i['src'])
+
+    ''' removing unnecessary html and body tags '''
+    soup.html.unwrap()
+    soup.body.unwrap()
 
     return soup.prettify(formatter="html").strip()
 
@@ -129,6 +136,16 @@ def strip_tracking_suffix(url):
         return url[:match.start()]
     else:
         return url
+
+
+def base_url(url, with_path=False):
+    parsed = urllib.parse.urlparse(url)
+    path   = '/'.join(parsed.path.split('/')[:-1]) if with_path else ''
+    parsed = parsed._replace(path=path)
+    parsed = parsed._replace(params='')
+    parsed = parsed._replace(query='')
+    parsed = parsed._replace(fragment='')
+    return parsed.geturl()
 
 
 # controllers
@@ -165,18 +182,21 @@ def main():
                 data = get_remote_data(url)
 
                 if data.url:
+                    request_base_url = base_url(url)
                     page_title = data.title
                     lead_img_url = get_lead_image(data)
-                    page_content = update_links(data.content,
-                                                page_theme, page_links)
+                    page_content = update_links(request_base_url, 
+                                                data.content,
+                                                page_theme,
+                                                page_links)
                     page_url = url
                 else:
                     eprint("Parser unavailable: ", url, data)
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
                 eprint("Unexpected Error: ", sys.exc_info()[0])
-                return redirect(FALLBACK_REDIRECT_URL + url)
-                # raise
+                # return redirect(FALLBACK_REDIRECT_URL + url)
+                raise
 
         else:
             page_title = 'Invalid URL'
