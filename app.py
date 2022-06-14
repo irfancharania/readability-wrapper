@@ -95,10 +95,26 @@ def build_img_url(request_base_url, img_url):
     return absolute
 
 
+def remove_unnecessary_elements(soup):
+    ''' removing unnecessary html and body tags '''
+    soup.html.unwrap()
+    soup.body.unwrap()
+
+    ''' <picture> gets extracted with empty <source> causing no images.
+    This replaces those <picture> tags with <img> '''
+    pictures = soup.findAll('picture')
+    for pic in pictures:
+        img = pic.find('img').extract()
+        pic.replace_with(img)
+
+    return soup
+
+
 def update_links(request_base_url, content, page_theme=None, page_links=None):
     ''' update image and outgoing links to pass through this site '''
 
-    soup = BeautifulSoup(content, 'lxml')
+    extract = BeautifulSoup(content, 'lxml')
+    soup = remove_unnecessary_elements(extract)
 
     for h in soup.findAll('a', href=True):
         h['href'] = build_link_url(h['href'], page_theme, page_links)
@@ -106,10 +122,6 @@ def update_links(request_base_url, content, page_theme=None, page_links=None):
     ''' removing srcset=True filter to catch lxml screwups '''
     for i in soup.findAll('img', src=True):
         i['src'] = build_img_url(request_base_url, i['src'])
-
-    ''' removing unnecessary html and body tags '''
-    soup.html.unwrap()
-    soup.body.unwrap()
 
     return soup.prettify(formatter="html").strip()
 
@@ -140,7 +152,7 @@ def strip_tracking_suffix(url):
 
 def base_url(url, with_path=False):
     parsed = urllib.parse.urlparse(url)
-    path   = '/'.join(parsed.path.split('/')[:-1]) if with_path else ''
+    path = '/'.join(parsed.path.split('/')[:-1]) if with_path else ''
     parsed = parsed._replace(path=path)
     parsed = parsed._replace(params='')
     parsed = parsed._replace(query='')
@@ -185,7 +197,7 @@ def main():
                     request_base_url = base_url(url)
                     page_title = data.title
                     lead_img_url = get_lead_image(data)
-                    page_content = update_links(request_base_url, 
+                    page_content = update_links(request_base_url,
                                                 data.content,
                                                 page_theme,
                                                 page_links)
@@ -195,8 +207,8 @@ def main():
                     return redirect(FALLBACK_REDIRECT_URL + url)
             except:
                 eprint("Unexpected Error: ", sys.exc_info()[0])
-                # return redirect(FALLBACK_REDIRECT_URL + url)
-                raise
+                return redirect(FALLBACK_REDIRECT_URL + url)
+                # raise
 
         else:
             page_title = 'Invalid URL'
