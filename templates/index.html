@@ -42,6 +42,9 @@
         <h1>
             {{title}}
         </h1>
+        {% if date_published %}
+        <div>Published: <strong><time itemprop="datePublished" datetime="{{date_published}}">{{date_published.strftime('%Y-%B-%d')}}</time></strong></div>
+        {% endif %}
         {% autoescape false %}
             {% if lead_img_url %}
             <p><img src="{{lead_img_url}}" class="lead" width="100%" /></p>

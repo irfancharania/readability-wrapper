@@ -175,6 +175,7 @@ def main():
     page_title = ""
     page_content = ""
     lead_img_url = ""
+    date_published = ""
 
     # parse query string parameters
     paramTheme = request.args.get('theme')
@@ -202,6 +203,7 @@ def main():
                                                 page_theme,
                                                 page_links)
                     page_url = url
+                    date_published = data.date_published
                 else:
                     eprint("Parser unavailable: ", url, data)
                     return redirect(FALLBACK_REDIRECT_URL + url)
@@ -225,7 +227,9 @@ def main():
                            url=page_url,
                            theme=page_theme,
                            links=page_links,
-                           host=host_url)
+                           host=host_url,
+                           date_published=date_published
+                           )
 
 
 # launch
