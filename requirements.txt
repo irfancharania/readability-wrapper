@@ -15,7 +15,7 @@ decorator==4.3.0
 entrypoints==0.3
 flake8==5.0.4
 Flask==2.2.2
-gunicorn==19.9.0
+gunicorn==20.1.0
 humanize==0.5.1
 idna==2.8
 importlib-metadata==4.2.0
