@@ -13,7 +13,7 @@ cryptography==37.0.2
 dateparser==1.1.1
 decorator==4.3.0
 entrypoints==0.3
-flake8==4.0.1
+flake8==5.0.4
 Flask==2.2.2
 gunicorn==19.9.0
 humanize==0.5.1
@@ -25,13 +25,13 @@ Jinja2==3.1.2
 lxml==4.9.1
 MarkupSafe==2.1.1
 maya==0.6.1
-mccabe==0.6.1
+mccabe==0.7.0
 more-itertools==8.2.0
 packaging==19.1
 pendulum==2.0.4
 pluggy==0.12.0
 py==1.11.0
-pycodestyle==2.8.0
+pycodestyle==2.9.1
 pycparser==2.21
 pyflakes==2.5.0
 pyOpenSSL==19.1.0
