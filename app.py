@@ -32,11 +32,13 @@ def get_remote_data(url):
 def strip_invalid_html(content):
     ''' strips invalid tags/attributes '''
 
-    allowed_tags = ['a', 'abbr', 'acronym', 'address', 'b', 'br', 'div', 'dl', 'dt',
-                    'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i', 'img',
-                    'li', 'ol', 'p', 'picture', 'pre', 'q', 's', 'small', 'strike', 
-                    'strong', 'span', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 
-                    'th', 'thead', 'tr', 'tt', 'u', 'ul']
+    allowed_tags = ['a', 'abbr', 'acronym', 'address', 'article', 'b', 'br',
+                    'div', 'dl', 'dt', 'em', 'figure', 'figcaption', 'h1',
+                    'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'i', 'img',
+                    'li', 'ol', 'p', 'picture', 'pre', 'q', 's', 'small',
+                    'strike', 'strong', 'span', 'sub', 'sup', 'table', 'tbody',
+                    'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'u', 'ul'
+                    ]
 
     allowed_attrs = {
         'a': ['href', 'target', 'title'],
@@ -44,13 +46,10 @@ def strip_invalid_html(content):
     }
 
     cleaned = bleach.clean(content,
-                            tags=allowed_tags,
-                            attributes=allowed_attrs,
-                            strip=True)
+                           tags=allowed_tags,
+                           attributes=allowed_attrs,
+                           strip=True)
 
-    # handle malformed html after running through bleach
-    #tree = BeautifulSoup(cleaned, "lxml")
-    #return str(tree.html)
     return cleaned
 
 
@@ -59,9 +58,9 @@ def clean_input_url(paramUrl):
 
     return strip_tracking_suffix(
                 urllib.parse.unquote(paramUrl)
-                    .strip().strip("/")
-                    .replace(' ', '%20')
-                    .replace(AMP_PREFIX, '')
+                .strip().strip("/")
+                .replace(' ', '%20')
+                .replace(AMP_PREFIX, '')
                 )
 
 
@@ -80,11 +79,15 @@ def strip_redirects(page_url):
     return t
 
 
-def build_link_url(page_url, page_theme=None, page_links=None):
-    u = strip_redirects(page_url)
+def build_link_url(request_base_url, page_url,
+                   page_theme=None, page_links=None):
 
-    if any(x in page_url for x in DO_NOT_REDIRECT) or \
-        page_links == 'original':
+    # fix relative to absolute
+    absolute = urljoin(request_base_url, page_url)
+    # strip redirects
+    u = strip_redirects(absolute)
+
+    if any(x in page_url for x in DO_NOT_REDIRECT) or page_links == 'original':
         link = u
     else:
         params = {'url': u}
@@ -115,7 +118,7 @@ def build_img_url(request_base_url, img_url):
         if (i > 0):
             t = t[:i]
 
-    # fix absolute to relative
+    # fix relative to absolute
     absolute = urljoin(request_base_url, t)
 
     return absolute
@@ -125,13 +128,6 @@ def remove_unnecessary_elements(soup):
     ''' removing unnecessary html and body tags '''
     soup.html.unwrap()
     soup.body.unwrap()
-
-    ''' <picture> gets extracted with empty <source> causing no images.
-    This replaces those <picture> tags with <img> '''
-    pictures = soup.findAll('picture')
-    for pic in pictures:
-        img = pic.find('img').extract()
-        pic.replace_with(img)
 
     return soup
 
@@ -144,7 +140,8 @@ def update_links(request_base_url, content, page_theme=None, page_links=None):
     soup = remove_unnecessary_elements(extract)
 
     for h in soup.findAll('a', href=True):
-        h['href'] = build_link_url(h['href'], page_theme, page_links)
+        h['href'] = build_link_url(request_base_url, h['href'],
+                                   page_theme, page_links)
 
     ''' removing srcset=True filter to catch lxml screwups '''
     for i in soup.findAll('img', src=True):
@@ -191,7 +188,7 @@ def base_url(url, with_path=False):
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-                                'ico/favicon.ico')
+                               'ico/favicon.ico')
 
 
 @app.route("/")
@@ -203,13 +200,17 @@ def main():
     page_content = ""
     lead_img_url = ""
     date_published = ""
+    page_theme = ""
+    page_links = ""
 
     # parse query string parameters
     paramTheme = request.args.get('theme')
-    page_theme = 'dark' if paramTheme and paramTheme.lower() == 'dark' else ''
+    if paramTheme and paramTheme.lower() == 'dark':
+        page_theme = 'dark'
 
     paramLinks = request.args.get('links')
-    page_links = 'original' if paramLinks and paramLinks.lower() == 'original' else ''
+    if paramLinks and paramLinks.lower() == 'original':
+        page_links = 'original'
 
     paramUrl = request.args.get('url')
 
@@ -248,15 +249,14 @@ def main():
         page_content = 'No content provided'
 
     return render_template('index.html',
-                            title=page_title,
-                            lead_img_url=lead_img_url,
-                            content=page_content,
-                            url=page_url,
-                            theme=page_theme,
-                            links=page_links,
-                            host=host_url,
-                            date_published=date_published
-                            )
+                           title=page_title,
+                           lead_img_url=lead_img_url,
+                           content=page_content,
+                           url=page_url,
+                           theme=page_theme,
+                           links=page_links,
+                           host=host_url,
+                           date_published=date_published)
 
 
 # launch
