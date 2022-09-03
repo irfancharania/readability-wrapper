@@ -51,7 +51,8 @@ def test_build_link_ignore_google_link():
     given = 'https://goo.gl/maps/Pzw6XhTeLz62'
     expected = 'https://goo.gl/maps/Pzw6XhTeLz62'
 
-    result = app.build_link_url(given)
+    base_url = 'https://goo.gl'
+    result = app.build_link_url(base_url, given)
 
     assert result == expected
 
