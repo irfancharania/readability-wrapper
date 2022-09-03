@@ -35,7 +35,7 @@ dependencies:
     - entrypoints==0.3
     - flake8==5.0.4
     - flask==2.2.2
-    - gunicorn==19.9.0
+    - gunicorn==20.1.0
     - humanize==0.5.1
     - idna==2.8
     - importlib-metadata==4.2.0
@@ -61,13 +61,13 @@ dependencies:
     - pytest==7.1.2
     - python-dateutil==2.8.2
     - python-dotenv==0.20.0
-    - pytz==2018.5
-    - pytzdata==2018.5
+    - pytz==2022.2.1
+    - pytzdata==2020.1
     - regex==2022.3.2
-    - requests==2.28.0
+    - requests==2.28.1
     - six==1.14.0
     - snaptime==0.2.4
-    - soupsieve==1.9.3
+    - soupsieve==2.3.2.post1
     - tomli==2.0.1
     - tzlocal==1.5.1
     - urllib3==1.26.9
