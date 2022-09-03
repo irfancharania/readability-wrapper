@@ -32,10 +32,10 @@ def get_remote_data(url):
 def strip_invalid_html(content):
     ''' strips invalid tags/attributes '''
 
-    allowed_tags = ['a', 'abbr', 'acronym', 'address', 'article', 'b', 'br',
-                    'div', 'dl', 'dt', 'em', 'figure', 'figcaption', 'h1',
-                    'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'i', 'img',
-                    'li', 'ol', 'p', 'picture', 'pre', 'q', 's', 'small',
+    allowed_tags = ['a', 'abbr', 'acronym', 'address', 'b', 'br',
+                    'div', 'dl', 'dt', 'em', 'h1',
+                    'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i', 'img',
+                    'li', 'ol', 'p', 'pre', 'q', 's', 'small',
                     'strike', 'strong', 'span', 'sub', 'sup', 'table', 'tbody',
                     'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'u', 'ul'
                     ]
