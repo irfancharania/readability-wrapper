@@ -56,7 +56,7 @@ urllib3==2.2.1
 validators==0.22.0
 wcwidth==0.1.7
 webencodings==0.5.1
-Werkzeug==3.0.1
+Werkzeug==3.0.3
 win-inet-pton==1.1.0
 wincertstore==0.2
 zipp==0.6.0
