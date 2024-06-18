@@ -52,7 +52,7 @@ snaptime==0.2.4
 soupsieve==2.3.2.post1
 tomli==2.0.1
 tzlocal==1.5.1
-urllib3==2.2.1
+urllib3==2.2.2
 validators==0.28.3
 wcwidth==0.1.7
 webencodings==0.5.1
