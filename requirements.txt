@@ -42,7 +42,7 @@ pyparsing==2.4.2
 PySocks==1.7.1
 pytest==8.2.2
 python-dateutil==2.9.0.post0
-python-dotenv==1.0.1
+python-dotenv==1.2.2
 pytz==2022.2.1
 pytzdata==2020.1
 regex==2024.5.15
