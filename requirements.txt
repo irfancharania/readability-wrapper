@@ -49,7 +49,7 @@ regex==2024.5.15
 requests==2.32.3
 six==1.14.0
 snaptime==0.2.4
-soupsieve==2.3.2.post1
+soupsieve==2.8.4
 tomli==2.0.1
 tzlocal==1.5.1
 urllib3==2.2.1
