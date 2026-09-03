@@ -37,7 +37,7 @@ py==1.11.0
 pycodestyle==2.11.1
 pycparser==2.21
 pyflakes==3.2.0
-pyOpenSSL==24.1.0
+pyOpenSSL==26.0.0
 pyparsing==2.4.2
 PySocks==1.7.1
 pytest==8.2.2
