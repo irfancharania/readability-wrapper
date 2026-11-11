@@ -1,0 +1,21 @@
+[project]
+name = "readability-wrapper"
+version = "0.1.0"
+description = "A front-end for Mercury Web Parser that removes the cruft from web pages for a pleasant reading experience"
+requires-python = ">=3.14"
+dependencies = [
+    "flask==3.1.3",
+    "gunicorn==27.0.0",
+    "requests==2.34.2",
+    "validators==0.36.0",
+    "bleach==6.4.0",
+    "beautifulsoup4==4.15.0",
+    "lxml==6.1.3",
+    "python-dotenv==1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.2.0",
+    "flake8==7.5.0",
+]

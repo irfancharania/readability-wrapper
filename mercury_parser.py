@@ -1,5 +1,5 @@
 import requests
-import maya
+from datetime import datetime
 from config import MERCURY_API_URL
 
 
@@ -41,8 +41,9 @@ class ParsedArticle(object):
         # Proper Datetimes.
         if p.date_published:
             try:
-                p.date_published = maya.MayaDT.from_iso8601(p.date_published).datetime()
-            except:
+                p.date_published = datetime.fromisoformat(
+                    p.date_published.replace('Z', '+00:00'))
+            except (ValueError, TypeError, AttributeError):
                 p.date_published = None
                 
         return p
